@@ -25,16 +25,9 @@ const NavLink = styled(Link)<{ $active?: boolean }>`
   text-decoration: none;
   color: ${(props) =>
     props.$active ? props.theme.colors.primary : props.theme.colors.text};
-  font-weight: ${(props) => (props.$active ? "600" : "400")};
   padding: ${(props) => props.theme.spacing.sm}
     ${(props) => props.theme.spacing.md};
   border-radius: ${(props) => props.theme.borderRadius.md};
-  transition: all 0.2s ease;
-
-  &:hover {
-    color: ${(props) => props.theme.colors.primary};
-    background: ${(props) => props.theme.colors.background};
-  }
 `;
 
 export const Navigation = () => {
