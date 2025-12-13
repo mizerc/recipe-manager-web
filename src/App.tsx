@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Layout } from "./components/Layout/Layout";
 import { DashboardPage } from "./pages/DashboardPage";
-import { FoodsPage } from "./pages/FoodsPage";
+import { FoodsPage } from "./modules/Foods/pages/FoodsPage";
 import { RecipesPage } from "./pages/RecipesPage";
 import { theme } from "./styles/theme";
 import { SettingsPage } from "./pages/SettingsPage";

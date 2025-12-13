@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const Container = styled.div`
+const PageContainer = styled.div`
   max-width: 800px;
   min-width: 600px;
   margin: 0 auto;
@@ -11,4 +11,4 @@ const Container = styled.div`
   box-shadow: ${(props) => props.theme.shadows.sm};
 `;
 
-export default Container;
+export default PageContainer;

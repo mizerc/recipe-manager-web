@@ -1,54 +1,54 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Recipe, RecipeIngredient } from '../types';
-import { recipeService } from '../services/recipeService';
-import { foodService } from '../services/foodService';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Recipe, RecipeIngredient } from "../types";
+import { recipeService } from "../services/recipeService";
+import { foodService } from "../modules/Foods/services/foodService";
 
 const Form = styled.form`
-  background: ${props => props.theme.colors.surface};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.borderRadius.lg};
-  padding: ${props => props.theme.spacing.xl};
-  box-shadow: ${props => props.theme.shadows.md};
+  background: ${(props) => props.theme.colors.surface};
+  border: 1px solid ${(props) => props.theme.colors.border};
+  border-radius: ${(props) => props.theme.borderRadius.lg};
+  padding: ${(props) => props.theme.spacing.xl};
+  box-shadow: ${(props) => props.theme.shadows.md};
   max-width: 800px;
   margin: 0 auto;
 `;
 
 const Title = styled.h2`
-  margin: 0 0 ${props => props.theme.spacing.lg} 0;
-  color: ${props => props.theme.colors.text};
+  margin: 0 0 ${(props) => props.theme.spacing.lg} 0;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: ${props => props.theme.spacing.lg};
+  margin-bottom: ${(props) => props.theme.spacing.lg};
 `;
 
 const Label = styled.label`
   display: block;
-  margin-bottom: ${props => props.theme.spacing.sm};
-  color: ${props => props.theme.colors.text};
+  margin-bottom: ${(props) => props.theme.spacing.sm};
+  color: ${(props) => props.theme.colors.text};
   font-weight: 500;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: ${props => props.theme.spacing.sm};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${(props) => props.theme.spacing.sm};
+  border: 1px solid ${(props) => props.theme.colors.border};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   font-size: 1rem;
   transition: border-color 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: ${props => props.theme.colors.primary};
+    border-color: ${(props) => props.theme.colors.primary};
   }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: ${props => props.theme.spacing.sm};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${(props) => props.theme.spacing.sm};
+  border: 1px solid ${(props) => props.theme.colors.border};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   font-size: 1rem;
   font-family: inherit;
   resize: vertical;
@@ -57,29 +57,29 @@ const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: ${props => props.theme.colors.primary};
+    border-color: ${(props) => props.theme.colors.primary};
   }
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: ${props => props.theme.spacing.sm};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${(props) => props.theme.spacing.sm};
+  border: 1px solid ${(props) => props.theme.colors.border};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   font-size: 1rem;
   transition: border-color 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: ${props => props.theme.colors.primary};
+    border-color: ${(props) => props.theme.colors.primary};
   }
 `;
 
 const IngredientRow = styled.div`
   display: flex;
-  gap: ${props => props.theme.spacing.md};
+  gap: ${(props) => props.theme.spacing.md};
   align-items: center;
-  margin-bottom: ${props => props.theme.spacing.sm};
+  margin-bottom: ${(props) => props.theme.spacing.sm};
 `;
 
 const IngredientSelect = styled(Select)`
@@ -91,11 +91,12 @@ const QuantityInput = styled(Input)`
 `;
 
 const RemoveButton = styled.button`
-  background: ${props => props.theme.colors.error};
+  background: ${(props) => props.theme.colors.error};
   color: white;
   border: none;
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
-  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${(props) => props.theme.spacing.sm}
+    ${(props) => props.theme.spacing.md};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   cursor: pointer;
   transition: background 0.2s ease;
 
@@ -105,11 +106,12 @@ const RemoveButton = styled.button`
 `;
 
 const AddButton = styled.button`
-  background: ${props => props.theme.colors.secondary};
+  background: ${(props) => props.theme.colors.secondary};
   color: white;
   border: none;
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
-  border-radius: ${props => props.theme.borderRadius.md};
+  padding: ${(props) => props.theme.spacing.sm}
+    ${(props) => props.theme.spacing.md};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   cursor: pointer;
   font-weight: 500;
   transition: background 0.2s ease;
@@ -121,27 +123,31 @@ const AddButton = styled.button`
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: ${props => props.theme.spacing.md};
+  gap: ${(props) => props.theme.spacing.md};
   justify-content: flex-end;
-  margin-top: ${props => props.theme.spacing.xl};
+  margin-top: ${(props) => props.theme.spacing.xl};
 `;
 
-const Button = styled.button<{ $variant?: 'primary' | 'secondary' }>`
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.lg};
+const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
+  padding: ${(props) => props.theme.spacing.sm}
+    ${(props) => props.theme.spacing.lg};
   border: none;
-  border-radius: ${props => props.theme.borderRadius.md};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 
-  ${props => props.$variant === 'primary' ? `
+  ${(props) =>
+    props.$variant === "primary"
+      ? `
     background: ${props.theme.colors.primary};
     color: white;
     &:hover {
       background: ${props.theme.colors.primaryDark};
     }
-  ` : `
+  `
+      : `
     background: ${props.theme.colors.background};
     color: ${props.theme.colors.text};
     border: 1px solid ${props.theme.colors.border};
@@ -159,11 +165,11 @@ interface RecipeFormProps {
 
 export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    servings: '',
-    prepTime: '',
-    instructions: '',
+    name: "",
+    description: "",
+    servings: "",
+    prepTime: "",
+    instructions: "",
   });
   const [ingredients, setIngredients] = useState<RecipeIngredient[]>([]);
   const foods = foodService.getAll();
@@ -183,7 +189,7 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
 
   const handleAddIngredient = () => {
     if (foods.length === 0) {
-      alert('Please add foods first before creating recipes.');
+      alert("Please add foods first before creating recipes.");
       return;
     }
     setIngredients([...ingredients, { foodId: foods[0].id, quantity: 1 }]);
@@ -193,11 +199,15 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
     setIngredients(ingredients.filter((_, i) => i !== index));
   };
 
-  const handleIngredientChange = (index: number, field: 'foodId' | 'quantity', value: string) => {
+  const handleIngredientChange = (
+    index: number,
+    field: "foodId" | "quantity",
+    value: string
+  ) => {
     const updated = [...ingredients];
     updated[index] = {
       ...updated[index],
-      [field]: field === 'quantity' ? parseFloat(value) || 0 : value,
+      [field]: field === "quantity" ? parseFloat(value) || 0 : value,
     };
     setIngredients(updated);
   };
@@ -225,7 +235,7 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Title>{recipe ? 'Edit Recipe' : 'Add New Recipe'}</Title>
+      <Title>{recipe ? "Edit Recipe" : "Add New Recipe"}</Title>
 
       <FormGroup>
         <Label htmlFor="name">Name *</Label>
@@ -243,7 +253,9 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
         <TextArea
           id="description"
           value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
         />
       </FormGroup>
 
@@ -254,7 +266,9 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
           type="number"
           min="1"
           value={formData.servings}
-          onChange={(e) => setFormData({ ...formData, servings: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, servings: e.target.value })
+          }
           required
         />
       </FormGroup>
@@ -266,7 +280,9 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
           type="number"
           min="0"
           value={formData.prepTime}
-          onChange={(e) => setFormData({ ...formData, prepTime: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, prepTime: e.target.value })
+          }
           required
         />
       </FormGroup>
@@ -277,9 +293,11 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
           <IngredientRow key={index}>
             <IngredientSelect
               value={ingredient.foodId}
-              onChange={(e) => handleIngredientChange(index, 'foodId', e.target.value)}
+              onChange={(e) =>
+                handleIngredientChange(index, "foodId", e.target.value)
+              }
             >
-              {foods.map(food => (
+              {foods.map((food) => (
                 <option key={food.id} value={food.id}>
                   {food.name}
                 </option>
@@ -290,10 +308,15 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
               step="0.1"
               min="0"
               value={ingredient.quantity}
-              onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+              onChange={(e) =>
+                handleIngredientChange(index, "quantity", e.target.value)
+              }
               placeholder="Quantity"
             />
-            <RemoveButton type="button" onClick={() => handleRemoveIngredient(index)}>
+            <RemoveButton
+              type="button"
+              onClick={() => handleRemoveIngredient(index)}
+            >
               Remove
             </RemoveButton>
           </IngredientRow>
@@ -304,7 +327,7 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
           </AddButton>
         )}
         {foods.length === 0 && (
-          <p style={{ color: '#7f8c8d', fontSize: '0.9rem' }}>
+          <p style={{ color: "#7f8c8d", fontSize: "0.9rem" }}>
             No foods available. Please add foods first.
           </p>
         )}
@@ -315,7 +338,9 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
         <TextArea
           id="instructions"
           value={formData.instructions}
-          onChange={(e) => setFormData({ ...formData, instructions: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, instructions: e.target.value })
+          }
           placeholder="Step-by-step instructions..."
         />
       </FormGroup>
@@ -325,10 +350,9 @@ export const RecipeForm = ({ recipe, onSave, onCancel }: RecipeFormProps) => {
           Cancel
         </Button>
         <Button type="submit" $variant="primary">
-          {recipe ? 'Update' : 'Create'}
+          {recipe ? "Update" : "Create"}
         </Button>
       </ButtonGroup>
     </Form>
   );
 };
-

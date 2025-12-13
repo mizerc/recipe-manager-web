@@ -2,8 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { FoodList } from '../components/FoodList';
 import { FoodForm } from '../components/FoodForm';
-import { Food } from '../types';
-import Button from '../components/GUI/Button';
+import { Food } from '../../../types';
+import Button from '../../../components/GUI/Button';
 
 const Container = styled.div`
   display: flex;

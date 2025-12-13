@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Container from "../components/GUI/Container";
+import PageContainer from "../components/GUI/PageContainer";
 
 const Title = styled.h1`
   margin-bottom: ${(props) => props.theme.spacing.lg};
@@ -58,7 +58,7 @@ export const SettingsPage = () => {
   };
 
   return (
-    <Container>
+    <PageContainer>
       <Title>Settings</Title>
       <List>
         {FEATURES.map((feature) => (
@@ -71,6 +71,6 @@ export const SettingsPage = () => {
           </ListItem>
         ))}
       </List>
-    </Container>
+    </PageContainer>
   );
 };

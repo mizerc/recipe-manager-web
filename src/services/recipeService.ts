@@ -1,5 +1,5 @@
 import { Recipe } from '../types';
-import { foodService } from './foodService';
+import { foodService } from '../modules/Foods/services/foodService';
 
 const STORAGE_KEY = 'recipe-manager-recipes';
 

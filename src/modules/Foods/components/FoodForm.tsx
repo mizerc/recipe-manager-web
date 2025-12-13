@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Food } from '../types';
+import { Food } from '../../../types';
 import { foodService } from '../services/foodService';
 
 const Form = styled.form`

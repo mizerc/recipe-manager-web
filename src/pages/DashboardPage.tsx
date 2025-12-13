@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { foodService } from '../services/foodService';
+import { foodService } from '../modules/Foods/services/foodService';
 import { recipeService } from '../services/recipeService';
 import { Recipe } from '../types';
 import { RecipeCard } from '../components/RecipeCard';
