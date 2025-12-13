@@ -9,8 +9,9 @@ const Form = styled.form`
   border-radius: ${props => props.theme.borderRadius.lg};
   padding: ${props => props.theme.spacing.xl};
   box-shadow: ${props => props.theme.shadows.md};
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
+  min-width: 600px;
 `;
 
 const Title = styled.h2`

@@ -1,11 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
 const Nav = styled.nav`
-  background: ${props => props.theme.colors.surface};
-  border-bottom: 1px solid ${props => props.theme.colors.border};
-  padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.xl};
-  box-shadow: ${props => props.theme.shadows.sm};
+  background: ${(props) => props.theme.colors.surface};
+  border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  padding: ${(props) => props.theme.spacing.md}
+    ${(props) => props.theme.spacing.xl};
+  box-shadow: ${(props) => props.theme.shadows.sm};
 `;
 
 const NavList = styled.ul`
@@ -13,7 +14,7 @@ const NavList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: ${props => props.theme.spacing.lg};
+  gap: ${(props) => props.theme.spacing.lg};
 `;
 
 const NavItem = styled.li`
@@ -22,15 +23,17 @@ const NavItem = styled.li`
 
 const NavLink = styled(Link)<{ $active?: boolean }>`
   text-decoration: none;
-  color: ${props => props.$active ? props.theme.colors.primary : props.theme.colors.text};
-  font-weight: ${props => props.$active ? '600' : '400'};
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
-  border-radius: ${props => props.theme.borderRadius.md};
+  color: ${(props) =>
+    props.$active ? props.theme.colors.primary : props.theme.colors.text};
+  font-weight: ${(props) => (props.$active ? "600" : "400")};
+  padding: ${(props) => props.theme.spacing.sm}
+    ${(props) => props.theme.spacing.md};
+  border-radius: ${(props) => props.theme.borderRadius.md};
   transition: all 0.2s ease;
 
   &:hover {
-    color: ${props => props.theme.colors.primary};
-    background: ${props => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.background};
   }
 `;
 
@@ -41,22 +44,26 @@ export const Navigation = () => {
     <Nav>
       <NavList>
         <NavItem>
-          <NavLink to="/" $active={location.pathname === '/'}>
+          <NavLink to="/" $active={location.pathname === "/"}>
             Dashboard
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/foods" $active={location.pathname === '/foods'}>
+          <NavLink to="/foods" $active={location.pathname === "/foods"}>
             Foods
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/recipes" $active={location.pathname === '/recipes'}>
+          <NavLink to="/recipes" $active={location.pathname === "/recipes"}>
             Recipes
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/settings" $active={location.pathname === "/settings"}>
+            Settings
           </NavLink>
         </NavItem>
       </NavList>
     </Nav>
   );
 };
-
