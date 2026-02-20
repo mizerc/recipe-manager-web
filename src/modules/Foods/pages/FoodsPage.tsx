@@ -1,27 +1,8 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { FoodList } from '../components/FoodList';
-import { FoodForm } from '../components/FoodForm';
-import { Food } from '../../../types';
-import Button from '../../../components/GUI/Button';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${props => props.theme.spacing.lg};
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${props => props.theme.spacing.md};
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  color: ${props => props.theme.colors.text};
-`;
+import { useState } from "react";
+import { FoodList } from "../components/FoodList";
+import { FoodForm } from "../components/FoodForm";
+import { Food } from "../../../types";
+import PageContainer from "../../../components/GUI/PageContainer";
 
 export const FoodsPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -49,24 +30,19 @@ export const FoodsPage = () => {
 
   if (showForm) {
     return (
-      <Container>
+      <PageContainer title="Edit Food">
         <FoodForm
           food={editingFood || undefined}
           onSave={handleSave}
           onCancel={handleCancel}
         />
-      </Container>
+      </PageContainer>
     );
   }
 
   return (
-    <Container>
-      <Header>
-        <Title>Foods</Title>
-        <Button onClick={handleAddClick}>+ Add Food</Button>
-      </Header>
+    <PageContainer title="Foods Pageeeee">
       <FoodList onEdit={handleEdit} />
-    </Container>
+    </PageContainer>
   );
 };
-

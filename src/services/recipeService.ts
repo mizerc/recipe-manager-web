@@ -1,9 +1,9 @@
-import { Recipe } from '../types';
-import { foodService } from '../modules/Foods/services/foodService';
+import { Recipe } from "../types";
+import { foodService } from "../modules/Foods/services/foodService";
 
-const STORAGE_KEY = 'recipe-manager-recipes';
+const STORAGE_KEY = "recipe-manager-recipes";
 
-export const recipeService = {
+const recipeServiceLocally = {
   getAll(): Recipe[] {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
@@ -11,10 +11,10 @@ export const recipeService = {
 
   getById(id: string): Recipe | undefined {
     const recipes = this.getAll();
-    return recipes.find(recipe => recipe.id === id);
+    return recipes.find((recipe) => recipe.id === id);
   },
 
-  create(recipe: Omit<Recipe, 'id'>): Recipe {
+  create(recipe: Omit<Recipe, "id">): Recipe {
     const recipes = this.getAll();
     const newRecipe: Recipe = {
       ...recipe,
@@ -25,11 +25,11 @@ export const recipeService = {
     return newRecipe;
   },
 
-  update(id: string, updates: Partial<Omit<Recipe, 'id'>>): Recipe | null {
+  update(id: string, updates: Partial<Omit<Recipe, "id">>): Recipe | null {
     const recipes = this.getAll();
-    const index = recipes.findIndex(recipe => recipe.id === id);
+    const index = recipes.findIndex((recipe) => recipe.id === id);
     if (index === -1) return null;
-    
+
     recipes[index] = { ...recipes[index], ...updates };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
     return recipes[index];
@@ -37,16 +37,17 @@ export const recipeService = {
 
   delete(id: string): boolean {
     const recipes = this.getAll();
-    const filtered = recipes.filter(recipe => recipe.id !== id);
+    const filtered = recipes.filter((recipe) => recipe.id !== id);
     if (filtered.length === recipes.length) return false;
-    
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
     return true;
   },
 
   getFoodName(foodId: string): string {
     const food = foodService.getById(foodId);
-    return food?.name || 'Unknown Food';
+    return food?.name || "Unknown Food";
   },
 };
 
+export const recipeService = recipeServiceLocally;

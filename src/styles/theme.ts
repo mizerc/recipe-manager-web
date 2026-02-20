@@ -6,6 +6,7 @@ export const theme = {
     background: '#f5f7fa',
     surface: '#ffffff',
     text: '#2c3e50',
+    textDark: '#1a2b3c',
     textLight: '#7f8c8d',
     border: '#e1e8ed',
     error: '#e74c3c',
